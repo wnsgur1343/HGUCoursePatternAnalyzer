@@ -21,7 +21,7 @@ public class HGUCoursePatternAnalyzer {
 
 	int numOfStudents;
 	int numOfCourses;
-	Student[] students;
+	String[] students;
 	Course[] courses;
 	
 	/**
@@ -54,8 +54,25 @@ public class HGUCoursePatternAnalyzer {
 	 * @return
 	 */
 	private Student[] initiateStudentArrayFromLines(String[] lines) {
-		
+		String[] studentlist = new String[12];
+		String[] newStudent = new String[numOfStudents];
+		Student[] myStudent = new Student[numOfStudents];
 		// TODO: implement this method
+		for(int i=0; i<12; i++) {
+			studentlist[i] = lines[i].split(",")[1].trim();
+		}
+		
+		int count=0;
+		for(int i=0; i<12; i++) {
+			for(int j=0; j<12; j++) {
+				if( i!=j && studentlist[i].equals(studentlist[j])) {
+					newStudent[count] = studentlist[i];
+					myStudent[count] = new Student(studentlist[i]);
+					count++;
+				}
+			}
+		}
+		
 		
 		
 		return null;
@@ -70,7 +87,11 @@ public class HGUCoursePatternAnalyzer {
 	private boolean studentExist(Student[] students, Student student) {
 		
 		// TODO: implement this method
-
+		for(int i=0; i<students.length; i++) {
+			if(students[i].equals(student)) {
+				return true;
+			}
+		}
 		return false;
 	}
 	
@@ -82,6 +103,24 @@ public class HGUCoursePatternAnalyzer {
 	private Course[] initiateCourseArrayFromLines(String[] lines) {
 		
 		// TODO: implement this method
+		String[] courselist = new String[12];
+		String[] newCourse = new String[numOfCourses];
+		Course[] myCourse = new Course[numOfCourses];
+
+		for(int i=0; i<12; i++) {
+			courselist[i] = lines[i].split(",")[2].trim();
+		}
+		
+		int count=0;
+		for(int i=0; i<12; i++) {
+			for(int j=0; j<12; j++) {
+				if( i!=j && courselist[i].equals(courselist[j])) {
+					newCourse[count] = courselist[i];
+					myCourse[count] = new Course(courselist[i]);
+					count++;
+				}
+			}
+		}
 		
 		return null;
 	}
@@ -95,7 +134,12 @@ public class HGUCoursePatternAnalyzer {
 	private boolean courseExist(Course[] courses, Course course) {
 		
 		// TODO: implement this method
-
+		for(int i=0; i<courses.length; i++) {
+			if(courses[i].equals(course)) {
+				return true;
+			}
+		}
+		
 		return false;
 	}
 
