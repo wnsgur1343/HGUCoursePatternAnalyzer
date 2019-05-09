@@ -54,8 +54,8 @@ public class HGUCoursePatternAnalyzer {
 	 * @return
 	 */
 	private Student[] initiateStudentArrayFromLines(String[] lines) {
-		Student[] myStudents = new Student[numOfStudents];
 		// TODO: implement this method
+		Student[] myStudents = new Student[numOfStudents];
 		int count=0;
 		for(int i=0; i<lines.length; i++) {
 			Student myStudent = new Student(lines[i].split(",")[1].trim());
@@ -97,27 +97,23 @@ public class HGUCoursePatternAnalyzer {
 	private Course[] initiateCourseArrayFromLines(String[] lines) {
 		
 		// TODO: implement this method
-		String[] courselist = new String[12];
-		String[] newCourse = new String[numOfCourses];
-		Course[] myCourse = new Course[numOfCourses];
-
-		for(int i=0; i<12; i++) {
-			courselist[i] = lines[i].split(",")[2].trim();
-		}
-		
+		Course[] myCourses = new Course[numOfCourses];
 		int count=0;
-		for(int i=0; i<12; i++) {
-			for(int j=0; j<12; j++) {
-				if( i!=j && courselist[i].equals(courselist[j])) {
-					newCourse[count] = courselist[i];
-					myCourse[count] = new Course(courselist[i]);
-					count++;
-				}
+		for(int i=0; i<lines.length; i++) {
+			Course myCourse = new Course(lines[i].split(",")[2].trim());
+			
+			if(!courseExist(myCourses,myCourse)) {
+				myCourses[count] = myCourse;
+				count++;
 			}
 		}
 		
-		return null;
+		
+		
+		
+		return myCourses;
 	}
+
 
 	/**
 	 * This method check if there is the same name of the second argument in the array, courses.
@@ -129,12 +125,10 @@ public class HGUCoursePatternAnalyzer {
 		
 		// TODO: implement this method
 		for(int i=0; i<courses.length; i++) {
-			if(courses[i].equals(course)) {
+			if(courses[i] != null && courses[i].getCourseName().equals(course.getCourseName())) {
 				return true;
 			}
 		}
-		
 		return false;
 	}
-
 }
