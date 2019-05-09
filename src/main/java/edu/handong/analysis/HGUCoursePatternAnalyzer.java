@@ -21,7 +21,7 @@ public class HGUCoursePatternAnalyzer {
 
 	int numOfStudents;
 	int numOfCourses;
-	String[] students;
+	Student[] students;
 	Course[] courses;
 	
 	/**
@@ -54,28 +54,22 @@ public class HGUCoursePatternAnalyzer {
 	 * @return
 	 */
 	private Student[] initiateStudentArrayFromLines(String[] lines) {
-		String[] studentlist = new String[12];
-		String[] newStudent = new String[numOfStudents];
-		Student[] myStudent = new Student[numOfStudents];
+		Student[] myStudents = new Student[numOfStudents];
 		// TODO: implement this method
-		for(int i=0; i<12; i++) {
-			studentlist[i] = lines[i].split(",")[1].trim();
-		}
-		
 		int count=0;
-		for(int i=0; i<12; i++) {
-			for(int j=0; j<12; j++) {
-				if( i!=j && studentlist[i].equals(studentlist[j])) {
-					newStudent[count] = studentlist[i];
-					myStudent[count] = new Student(studentlist[i]);
-					count++;
-				}
+		for(int i=0; i<lines.length; i++) {
+			Student myStudent = new Student(lines[i].split(",")[1].trim());
+			
+			if(!studentExist(myStudents,myStudent)) {
+				myStudents[count] = myStudent;
+				count++;
 			}
 		}
 		
 		
 		
-		return null;
+		
+		return myStudents;
 	}
 
 	/**
@@ -88,7 +82,7 @@ public class HGUCoursePatternAnalyzer {
 		
 		// TODO: implement this method
 		for(int i=0; i<students.length; i++) {
-			if(students[i].equals(student)) {
+			if(students[i] != null && students[i].getName().equals(student.getName())) {
 				return true;
 			}
 		}
